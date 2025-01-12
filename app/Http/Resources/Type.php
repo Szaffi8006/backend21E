@@ -17,7 +17,7 @@ class Type extends JsonResource
         return [ 
         
         "id"=>$this->id,
-        "package"=>$this->package
+        "type"=>$this->type
         ];
     }
 }

@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
 
-class DrinkAddRequest extends FormRequest
+class PackageAddRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,25 +24,22 @@ class DrinkAddRequest extends FormRequest
     public function rules(): array
     {
         return [
-
-            "drink" => "required|min:3|max:20",
-            "amount" => "required|numeric",
-            "type" => "required",
-            "package" => "required"
+            "package"=>"required|min:3|max:20|unique:packages"
         ];
     }
 
-    public function messages (){
 
-        return[
-            "drink.required"=>"Ital neve elvárt!",
-            "drink.min"=>"Túl rövid név",
-            "drink.max"=>"Túl hosszú név",
-            "type.required"=>"Típus elvárt!",
+    public function messages(){
+
+        return [
             "package.required"=>"Kiszerelés elvárt!",
+            "package.min"=>"Túl rövid megnevezés!",
+            "package.min"=>"Túl rövid megnevezés!",
+            "package.unique"=>"Ez a kiszerelés már létezik!",
+
         ];
     }
-
+    
     public function failedValidation (Validator $validator) {
 
         throw new HttpResponseException (response ()->json ([
@@ -51,5 +48,4 @@ class DrinkAddRequest extends FormRequest
             "message"=>"Beviteli hiba",
             "data"=>$validator->errors()
         ]));
-    }
-}
+    }}

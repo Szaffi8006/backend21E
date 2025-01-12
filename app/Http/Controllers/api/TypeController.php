@@ -5,9 +5,8 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Type;
-use App\Http\Requests\TypeRequest;
+use App\Http\Requests\TypeAddRequest;
 use App\Http\Resources\Type as TypeResource;
-// use App\Http\Controllers\api\RepsponseController;
 
 class TypeController extends ResponseController {
 
@@ -18,9 +17,9 @@ class TypeController extends ResponseController {
         return $this->sendResponse( TypeResource::collection( $types ), "Típusok betöltve");
     }   
 
-    public function newType( TypeRequest $request ) {
+    public function newType( TypeAddRequest $request ) {
       
-        //    $request->validated();
+        $request->validated();
             $type = new Type();
 
             $type->type = $request[ "type" ];
@@ -31,7 +30,7 @@ class TypeController extends ResponseController {
 
     public function modifyType( TypeRequest $request ) {
 
-        // $request->validated();
+        $request->validated();
 
         $type = Type::find(request [$id] );
         if( !is_null( $type )) {

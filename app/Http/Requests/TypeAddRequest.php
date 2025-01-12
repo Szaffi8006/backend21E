@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
 
-class DrinkAddRequest extends FormRequest
+class TypeAddRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,21 +25,18 @@ class DrinkAddRequest extends FormRequest
     {
         return [
 
-            "drink" => "required|min:3|max:20",
-            "amount" => "required|numeric",
-            "type" => "required",
-            "package" => "required"
+            "type" => "required|min:3|max:20|unique:types|regex:/^([^0-9]*)$/",
         ];
     }
 
     public function messages (){
 
         return[
-            "drink.required"=>"Ital neve elvárt!",
-            "drink.min"=>"Túl rövid név",
-            "drink.max"=>"Túl hosszú név",
             "type.required"=>"Típus elvárt!",
-            "package.required"=>"Kiszerelés elvárt!",
+            "type.min"=>"Túl rövid megnevezés!",
+            "type.max"=>"Túl hosszú megnevezés!",
+            "type.unique"=>"Ez a tíus már létezik!",
+            "type.regex"=>"A megnevezés nem tartalmazhat számot!",
         ];
     }
 

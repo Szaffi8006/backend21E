@@ -5,9 +5,8 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Package;
-use App\Http\Requests\PackageRequest;
-use App\Http\Controllers\api\ResponseController;
 use App\Http\Resources\Package as PackageResource;
+use App\Http\Requests\PackageAddRequest;
 
 class PackageController extends ResponseController {
 
@@ -18,9 +17,9 @@ class PackageController extends ResponseController {
         return $this->sendResponse( PackageResource::collection( $packages ), "Kiszerelések betöltve");
     }
   
-    public function newPackage( PackageRequest $request ) {
+    public function newPackage( PackageAddRequest $request ) {
 
-        // $request->validated();
+        $request->validated();
              
             $package = new Package();
             $package->package = $request[ "package" ];
@@ -30,9 +29,9 @@ class PackageController extends ResponseController {
             return $this->sendResponse( new PackageResource( $package ), "Kiszerelés kiírva");
     }
 
-    public function modifyPackage( PackageRequest $request ) {
+    public function modifyPackage( PackagedRequest $request ) {
 
-        // $request->validated();
+        //$request->validated();
 
         $package = Package::find( $request ["id"] )->first();
         if( !is_null( $package )) {
